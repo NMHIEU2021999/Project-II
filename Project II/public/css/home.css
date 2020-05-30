@@ -1,0 +1,166 @@
+.content-container{
+    min-height: calc(100% - 275px);
+    background-color: #e9ebee;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.search-bar{
+    width: 96%;
+    height: 120px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    border-radius: 1px;
+}
+.select-box{
+    margin-left: 16px;
+    position: relative;
+}
+.search-bar-header{
+    margin-top: 8px;
+    margin-left: 8px;
+}
+.search-bar .row, .post-list .row{
+    margin-left: 0px;
+    margin-right: 0px;
+    white-space: nowrap;
+    align-items: center;
+}
+.search-bar .select{
+    padding-left: 28px;
+    height: 32px;
+    border: solid 1px #BDBDBD;
+}
+.select-icon{
+    position: absolute;
+    top: 7px;
+    left: 8px;
+}
+.search-bar form button{
+    margin-left: 24px;
+    margin-right: 16px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.btn-detail {
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 24px;
+    cursor: pointer;
+    font-size: 22px;
+}
+  
+.btn-detail span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.btn-detail span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: -1;
+    right: -10px;
+    transition: 0.5s;
+}
+  
+.btn-detail:hover span {
+    padding-right: 25px;
+}
+.btn-detail:hover{
+      background: #ff9800;
+      border: solid 1px #ff9800;
+      color: white;
+}
+  
+.btn-detail:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+.btn-detail{
+    background: #3F51B5;
+    border: solid 1px #3F51B5;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 16px;
+}
+
+.post-list{
+    width: 90%;
+    margin-bottom: 40px;
+    padding-top: 6px;
+}
+.short-post{
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding-left: 16px;
+}
+.content-container{
+    min-height: calc(100% - 275px);
+    background-color: #e9ebee;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.post-list .row{
+    margin-left: 0px;
+    margin-right: 0px;
+    white-space: nowrap;
+    align-items: center;
+}
+.short-info{
+    margin-left: 40px;
+}
+.short-info p{
+    margin: 0;
+}
+.btn-container{
+    position: absolute;
+    top: 28px;
+    right: 56px;
+    width: 100px;
+}
+.contest-name{
+    font-weight: bold;
+    font-size: 24px;
+}
+.price{
+    color: red;
+    font-weight: bold;
+    margin-left: 4px;
+}
+div.short-post.row{
+    color: #1976D2;
+}
+.paging{
+    margin-top: auto;
+    height: 80px;
+    font-family: monospace;
+    color: #007bff;
+    font-size: 18px;
+    user-select: none;
+}
+.paging .active{
+    pointer-events: none;
+}
+.paging .page-link:hover{
+    background-color: #90caf9;
+    border: solid 1px #90caf9;
+    color: #fff !important;
+}
+.disable{
+    color: #9E9E9E;
+    pointer-events: none;
+}
+.short-post a:hover{
+    text-decoration: none;
+}

@@ -1,0 +1,76 @@
+.contest-list{
+    width: 90%;
+    margin-bottom: 40px;
+    padding-top: 36px;
+}
+.short-post{
+    position: relative;
+    width: 100%;
+    height: 160px;
+    margin-top: 20px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding-left: 16px;
+}
+.content-container{
+    min-height: calc(100% - 275px);
+    background-color: #e9ebee;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.contest-list .row{
+    margin-left: 0px;
+    margin-right: 0px;
+    white-space: nowrap;
+    align-items: center;
+}
+.short-info{
+    margin-left: 40px;
+}
+.short-info p{
+    margin: 0;
+}
+.btn-join{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 16px;
+}
+.btn-container{
+    position: absolute;
+    top: 28px;
+    right: 56px;
+    width: 100px;
+}
+.contest-name{
+    font-weight: bold;
+    font-size: 24px;
+}
+.prize{
+    color: red;
+    font-weight: bold;
+    margin-left: 48px;
+}
+div.short-post.row{
+    color: #1976D2;
+}
+.paging{
+    margin-top: auto;
+    height: 80px;
+    font-family: monospace;
+    color: #007bff;
+    font-size: 18px;
+    user-select: none;
+}
+.paging .active{
+    pointer-events: none;
+}
+.paging .page-link:hover{
+    background-color: #90caf9;
+    border: solid 1px #90caf9;
+    color: #fff !important;
+}
+.disable{
+    color: #9E9E9E;
+    pointer-events: none;
+}

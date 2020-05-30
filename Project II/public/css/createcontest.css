@@ -1,0 +1,44 @@
+.create-form-container{
+    min-height: 118vh;
+    width: 96%;
+    margin-bottom: 24px;
+    margin-top: 24px;
+    background-color: #ffffff;
+}
+body{
+    min-width: 900px;
+}
+.create-form-container .navigator.row{
+    margin-left: 32px;
+    margin-top: 8px;
+    margin-bottom: 48px;
+}
+.navigator a{
+    font-weight: bold;
+    font-size: 18px;
+}
+.navigator a:hover{
+    text-decoration: none;
+}
+.create-form-container .row{
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 16px;
+    align-items: center;
+    min-height: 38px;
+
+}
+.create-form-container .row img{
+    margin-top: 12px;
+    max-width: 100%;
+    height: auto;
+}
+.create-container{
+    min-width: 880px;
+}
+.create-heading{
+    font-size: 36px;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 64px;
+}
