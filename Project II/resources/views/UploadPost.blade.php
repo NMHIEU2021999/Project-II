@@ -160,7 +160,6 @@
     </div>
     @include('Footer')
     <script src="./js/previewimage.js"></script>
-    <script src="./js/datetimepicker.js"></script>
 </body>
 
 </html>

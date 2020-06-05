@@ -4,6 +4,7 @@
     margin-bottom: 24px;
     margin-top: 24px;
     background-color: #ffffff;
+    padding-bottom: 24px;
 }
 body{
     min-width: 900px;
@@ -12,13 +13,6 @@ body{
     margin-left: 32px;
     margin-top: 8px;
     margin-bottom: 48px;
-}
-.navigator a{
-    font-weight: bold;
-    font-size: 18px;
-}
-.navigator a:hover{
-    text-decoration: none;
 }
 .create-form-container .row{
     margin-left: 0;

@@ -22,6 +22,8 @@ Route::get('/register', function(){
 });
 Route::post('/register', 'LoginController@register');
 Route::get('/logout', 'LoginController@logout');
+Route::get('/editprofile', 'LoginController@getFormEditProfile');
+Route::post('/editprofile', 'LoginController@EditProfile');
 Route::get('/uploadpost', 'PostController@getFormUpload');
 Route::post('/uploadpost', 'PostController@uploadPost');
 Route::get('/detailpost', 'PostController@getDetailPost');

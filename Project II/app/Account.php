@@ -50,4 +50,15 @@ use Illuminate\Support\Facades\Hash;
         $res = DB::table('Account')->where('username', $username)->first();
         return $res;
     }
+    public function checkUser($username, $password){
+        dd(Hash::make($password));
+       return DB::table('Account')->where('username', $username)->where('password', Hash::make($password))->exists();
+    }
+    public function checkUpdate($passwordId){
+        $errors = array();
+        if($this->password != $passwordId){
+            $errors['passwordId'] = 1;
+        }
+        return $errors;
+    }
 }

@@ -18,7 +18,7 @@
             <p>Quan tâm</p>
         </a>
         <div class="seperator"></div>
-        <a class="uploaded" href="/uploaded">
+        <a class="uploaded" href="/uploads">
             <p>Đã đăng</p>
         </a>
         <div class="seperator"></div>

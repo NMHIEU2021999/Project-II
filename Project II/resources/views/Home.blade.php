@@ -2,7 +2,7 @@
 
 <head>
 <meta charset="UTF-8">
-    <title>Trọ đẹp - Chi tiết bài đăng</title>
+    <title>Trọ đẹp - Trang chủ</title>
     <link rel="shortcut icon" type="image/png" href="./icon/favicon.png" />
     <link rel="stylesheet" type="text/css" href="./css/bootstrap4.1.13.min.css">
     <link rel="stylesheet" type="text/css" href="./css/header.css">
