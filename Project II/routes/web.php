@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PostController@getHomePage');
 Route::get('/login', 'LoginController@getLogin')->name('getLogin');
 Route::post('/login', 'LoginController@login');
-Route::get('/register', function(){
-    return view('Register');
-});
+Route::get('/register', 'LoginController@getRegisterForm');
 Route::post('/register', 'LoginController@register');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/editprofile', 'LoginController@getFormEditProfile');
@@ -27,3 +25,9 @@ Route::post('/editprofile', 'LoginController@EditProfile');
 Route::get('/uploadpost', 'PostController@getFormUpload');
 Route::post('/uploadpost', 'PostController@uploadPost');
 Route::get('/detailpost', 'PostController@getDetailPost');
+Route::get('/profile', 'LoginController@getUserProfile');
+Route::get('/uploads', 'PostController@getUploadedPosts');
+Route::get('/editpost', 'PostController@getFormEditPost');
+
+//Định tuyến cho các api
+Route::post('/api/deletepost', 'PostController@deletePost');

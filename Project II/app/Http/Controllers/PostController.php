@@ -8,8 +8,9 @@ use illuminate\http\Request;
     use Illuminate\Support\Facades\Session;
     use Illuminate\Support\Facades\Redirect;
     use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
-    class PostController extends Controller{
+class PostController extends Controller{
         public function getHomePage(Request $request){
             $res = array();
             if($request->has('province')){
@@ -182,6 +183,42 @@ use illuminate\http\Request;
             $user = new Account();
             $postuser = $user->findAccountByUserName($username);
             return view('DetailPost', ['post' => $res, 'postuser'=>$postuser]);
+        }
+        public function getUploadedPosts(Request $request){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
+            $p = new Post();
+            $res=[];
+            $res['posts'] = $p->getUploadedPosts();
+            return view('UploadedPost', $res);
+        }
+        public function deletePost(Request $request){
+            if(Auth::check() && ($request->ajax())){
+                $user = Auth::user();
+                $input = $request->all();
+                $p = new Post();
+                $p->postid = $input['postid'];
+                if($p->checkUserPost($user->username)){
+                    $p->deletePost();
+                    $res = [];
+                    $res[] = 'success';
+                    return response()->json($res);
+                }
+            }
+        }
+        public function getFormEditPost(Request $request){
+            if(!Auth::check() || !$request->has('postid')){
+                return redirect('/');
+            }
+            $user = Auth::user();
+            $p = new Post();
+            $p->postid = $request->postid;
+            if(!$p->checkUserPost($user->username)){
+                return redirect('/');
+            }
+            $post = $p->findPostByPostId($p->postid);
+            return view('/EditPost', ['post' => $post]);
         }
     }
 ?>

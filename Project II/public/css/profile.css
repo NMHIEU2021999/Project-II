@@ -1,0 +1,15 @@
+.profile-container{
+    background-color: white;
+    min-height: 440px;
+    width: 100%;
+    padding-right: 32px;
+    padding-bottom: 26px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+.edit-option a{
+    color: white;
+    font-weight: bold;
+    margin-right: 48px;
+    margin-left: auto;
+}

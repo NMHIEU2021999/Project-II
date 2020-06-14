@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
     class Account extends Model
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\Hash;
     var $job;
     var $introduction;
     var $acctype;
-    // Hàm kiểu tra thông tin đăng nhập
     public function checkLogin(){
         $dbaccount = DB::table('Account')->where('username', $this->username)->where('password', $this->password)->get();
         return $dbaccount[0];
@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Hash;
         if($this->password != $passwordId){
             $errors['passwordId'] = 1;
         }
+
         return $errors;
     }
     // Hàm thực hiện đăng ký
@@ -46,13 +47,26 @@ use Illuminate\Support\Facades\Hash;
            'job' => $this->job, 'introduction' => $this->introduction
         ]);
     }
+    // Hàm cập nhật thông tin cá nhân
+    public function updateProfile(){
+        DB::table('Account')->where('username', $this->username)->update([
+            'acctype' => $this->acctype, 'fullname' => $this->fullname,'birthday' => $this->birthday,
+           'address' => $this->address, 'phone' => $this->phone, 'email' => $this->email,
+           'job' => $this->job, 'introduction' => $this->introduction
+        ]);
+        if($this->password != ''){
+            DB::table('Account')->where('username', $this->username)->update([
+                'password' => Hash::make($this->password)
+            ]);
+        }
+    }
     public function findAccountByUserName($username){
         $res = DB::table('Account')->where('username', $username)->first();
         return $res;
     }
-    public function checkUser($username, $password){
-        dd(Hash::make($password));
-       return DB::table('Account')->where('username', $username)->where('password', Hash::make($password))->exists();
+    public function checkPassword($password){
+        $user = Auth::user();
+        return Hash::check($password, $user->password);
     }
     public function checkUpdate($passwordId){
         $errors = array();

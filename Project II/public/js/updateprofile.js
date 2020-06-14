@@ -6,3 +6,6 @@ $('#newpassword').on('change', function(e){
         $('#passwordid').removeAttr('required');
     }
 });
+$('.cancel').on('click', function(e){
+    window.location.href = "/";
+});

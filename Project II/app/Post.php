@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\This;
 
@@ -36,5 +37,15 @@ class Post extends Model
             'size' => $this->size, 'category' => $this->category, 'description' => $this->description, 'image1' => $this->image1,
             'image2' => $this->image2, 'image3' => $this->image3, 'image4' => $this->image4, 'image5' => $this->image5
         ]);
+    }
+    public function getUploadedPosts(){
+        $username = Auth::user()->username;
+        return DB::table('Post')->where('username', $username)->where('status', '<>', 'đã xoá')->paginate(8);
+    }
+    public function checkUserPost($username){
+        return DB::table('Post')->where('postid', $this->postid)->where('username', $username)->exists();
+    }
+    public function deletePost(){
+        DB::table('Post')->where('postid', $this->postid)->update(['status'=> 'đã xoá']);
     }
 }

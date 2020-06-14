@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Trọ đẹp - Đăng tin</title>
+    <title>Trọ đẹp - Cập nhật bài đăng</title>
     <link rel="shortcut icon" type="image/png" href="./icon/favicon.png" />
     <link rel="stylesheet" type="text/css" href="./css/bootstrap4.1.13.min.css">
     <link rel="stylesheet" type="text/css" href="./css/header.css">
@@ -17,17 +17,13 @@
 
 <body>
     @include('Header')
-    <script type="text/javascript">
-        $('.upload-post p').addClass('selected');
-        $('a.upload-post').addClass('selected');
-    </script>
     <div class="content-container container-fluid">
         <div class="create-form-container">
             <div class="navigator row">
                 <a href="/">HOME &nbsp;</a>
-                <p style="margin-top:2px; margin-bottom:0; color:#00897B; cursor:default; user-select:none"><i class="fas fa-angle-double-right" style="color: #2196F3;"></i>&nbsp; Đăng tin</p>
+                <p style="margin-top:2px; margin-bottom:0; color:#00897B; cursor:default; user-select:none"><i class="fas fa-angle-double-right" style="color: #2196F3;"></i>&nbsp; Cập nhật bài đăng</p>
             </div>
-            <h1 class="create-heading">Vui lòng điền các thông tin để đăng tin mới</h1>
+            <h1 class="create-heading">Vui lòng điền các thông tin bạn muốn cập nhật</h1>
             <form class="create-form" id="create-form" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -36,6 +32,17 @@
                     </div>
                     <div class="col-5" style="margin-right: auto">
                         <input type="text" class="form-control" required="required" name="postname" placeholder="Nhập tên bài đăng">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2" style="margin-left: auto">
+                        <b>Trạng thái (<i class="fa fa-asterisk require" aria-hidden="true"></i>):</b>
+                    </div>
+                    <div class="col-5" style="margin-right: auto">
+                        <select class="form-control" name="status">
+                            <option selected>đang giao</option>
+                            <option>đã cho thuê</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -161,7 +168,7 @@
     @include('Footer')
     <script type="text/javascript">
         $('.cancel').on('click', function(e){
-            window.location.href = "/";
+            window.location.href = "/uploads";
         });
     </script>
     <script src="./js/previewimage.js"></script>
