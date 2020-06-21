@@ -1,14 +1,12 @@
 <?php
-    namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Account;
 use illuminate\http\Request;
-    use Illuminate\Support\Facades\Auth;
-    use App\Post;
-    use Illuminate\Support\Facades\Session;
-    use Illuminate\Support\Facades\Redirect;
-    use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
+use App\Post;
+use App\Wish;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller{
         public function getHomePage(Request $request){
@@ -77,6 +75,7 @@ class PostController extends Controller{
                 $upperSize = false;
             }
             $posts = DB::table('Post')
+            ->where('status', '<>', 'đã xoá')
             ->when($province, function ($query, $province) {
                 return $query->where('province', $province);
             })
@@ -178,11 +177,23 @@ class PostController extends Controller{
         public function getDetailPost(Request $request){
             $post = new Post();
             $postid = $request->postid;
-            $res = $post->findPostByPostId($postid);
-            $username = $res->username;
+            $res=[];
+            if ($request->session()->has('successUpdatePost')) {
+            $temp = $request->session()->get('successUpdatePost');
+            $request->session()->forget('successUpdatePost');
+            $res['successUpdate'] = $temp;
+            }
+            $wish = new Wish();
+            $wish->postid = $postid;
+            $wish->username = Auth::user()->username;
+            if($wish->checkExitsted()){
+                $res['wish'] = true;
+            }
+            $res['post'] = $post->findPostByPostId($postid);
+            $username = $res['post']->username;
             $user = new Account();
-            $postuser = $user->findAccountByUserName($username);
-            return view('DetailPost', ['post' => $res, 'postuser'=>$postuser]);
+            $res['postuser'] = $user->findAccountByUserName($username);
+            return view('DetailPost', $res);
         }
         public function getUploadedPosts(Request $request){
             if(!Auth::check()){
@@ -190,8 +201,27 @@ class PostController extends Controller{
             }
             $p = new Post();
             $res=[];
-            $res['posts'] = $p->getUploadedPosts();
+            if($request->has('search')){
+                $search = $request->search;
+                $res['posts'] = $p->getUploadedPostsByName($search);
+                $res['search'] = $search;
+            }else{
+                $res['posts'] = $p->getUploadedPosts();
+            }
             return view('UploadedPost', $res);
+        }
+        public function searchUploadedPosts(Request $request){
+            if($request->ajax() && Auth::check()){
+                $input = $request->all();
+                $searchValue = $input['searchValue'];
+                $p = new Post();
+                $posts = $p->searchUploadedPostsByName($searchValue);
+                $listNames = [];
+                foreach($posts as $post){
+                    $listNames[] = $post->postname;
+                }
+                return response()->json($listNames);
+            }
         }
         public function deletePost(Request $request){
             if(Auth::check() && ($request->ajax())){
@@ -214,11 +244,74 @@ class PostController extends Controller{
             $user = Auth::user();
             $p = new Post();
             $p->postid = $request->postid;
-            if(!$p->checkUserPost($user->username)){
+            $post = $p->findPostByPostId($p->postid);
+            if((!$p->checkUserPost($user->username))||($post->status=='đã xoá')){
                 return redirect('/');
             }
+            return view('EditPost', ['post' => $post]);
+        }
+        public function EditPost(Request $request){
+            if(!Auth::check() || !$request->has('postid')){
+                return redirect('/');
+            }
+            $user = Auth::user();
+            $p = new Post();
+            $p->postid = $request->postid;
             $post = $p->findPostByPostId($p->postid);
-            return view('/EditPost', ['post' => $post]);
+            if((!$p->checkUserPost($user->username))||($post->status=='đã xoá')){
+                return redirect('/');
+            }
+            $a = new Account();
+            if(!$a->checkPassword($request->password)){
+                return view('EditPost', ['errorPassword' => true, 'post' => $post]);
+            }
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $p->postname = $request->postname;
+            $p->status = $request->status;
+            $p->address = $request->address;
+            $p->province = $request->province;
+            $p->price = $request->price;
+            $p->size = $request->size;
+            $p->category = $request->category;
+            $p->description = $request->description;
+            if($request->hasFile('image1')){
+                $temp = $request->image1;
+                $imageName = "user_img1_" . md5($user->username) . date('_d_m_Y H_i_s ') . $temp->getClientOriginalName();
+                $p->image1 = $temp->move('upload', $imageName);
+            }else{
+                $p->image1= $post->image1;
+            }
+            if($request->hasFile('image2')){
+                $temp = $request->image2;
+                $imageName = "user_img2_" . md5($user->username) . date('_d_m_Y H_i_s ') . $temp->getClientOriginalName();
+                $p->image1 = $temp->move('upload', $imageName);
+            }else{
+                $p->image2= $post->image2;
+            }
+            if($request->hasFile('image3')){
+                $temp = $request->image3;
+                $imageName = "user_img3_" . md5($user->username) . date('_d_m_Y H_i_s ') . $temp->getClientOriginalName();
+                $p->image1 = $temp->move('upload', $imageName);
+            }else{
+                $p->image3= $post->image3;
+            }
+            if($request->hasFile('image4')){
+                $temp = $request->image4;
+                $imageName = "user_img4_" . md5($user->username) . date('_d_m_Y H_i_s ') . $temp->getClientOriginalName();
+                $p->image1 = $temp->move('upload', $imageName);
+            }else{
+                $p->image4= $post->image4;
+            }
+            if($request->hasFile('image5')){
+                $temp = $request->image5;
+                $imageName = "user_img5_" . md5($user->username) . date('_d_m_Y H_i_s ') . $temp->getClientOriginalName();
+                $p->image1 = $temp->move('upload', $imageName);
+            }else{
+                $p->image5= $post->image5;
+            }
+            $p->updatePost();
+            session(['successUpdatePost' => true]);
+            return redirect('/detailpost?postid=' . $p->postid);
         }
     }
 ?>

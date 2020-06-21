@@ -3,7 +3,7 @@ div.header{
     box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.4);
     z-index: 10;
     height: 55px;
-    width: 100%;
+    min-width: 1000px;
     margin-right: 0px;
     margin-left: 0px;
     display: flex;

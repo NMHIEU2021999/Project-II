@@ -28,6 +28,13 @@ Route::get('/detailpost', 'PostController@getDetailPost');
 Route::get('/profile', 'LoginController@getUserProfile');
 Route::get('/uploads', 'PostController@getUploadedPosts');
 Route::get('/editpost', 'PostController@getFormEditPost');
+Route::post('/editpost', 'PostController@EditPost');
+Route::get('/wishlist', 'WishController@getUserWishList');
 
 //Định tuyến cho các api
 Route::post('/api/deletepost', 'PostController@deletePost');
+Route::post('/api/searchuploadedposts', 'PostController@searchUploadedPosts');
+Route::post('/api/addtowishlist', 'WishController@addToWishList');
+Route::post('/api/removefromwishlist', 'WishController@removeFromWishList');
+Route::post('/api/searchwishposts', 'WishController@searchWishPosts');
+Route::post('/api/reportpost', 'ReportController@reportPost');

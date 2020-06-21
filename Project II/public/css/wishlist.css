@@ -1,0 +1,9 @@
+.wish-option{
+    position: absolute;
+    top: 19px;
+    right: 170px;
+}
+.wish-option a.wish{
+    font-size: 38px;
+    cursor: pointer;
+}

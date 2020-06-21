@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="./css/content.css">
     <link rel="stylesheet" type="text/css" href="./css/footer.css">
     <link rel="stylesheet" type="text/css" href="./css/home.css">
-    <link rel="stylesheet" type="text/css" href="./css/detailpost.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
@@ -139,11 +138,14 @@
                     <div class="btn-container">
                         <a style="padding-top: 10px; padding-bottom: 10px" href="/detailpost?postid=<?php echo $post->postid ?>" class="btn-detail"><span>Chi tiết</span></a>
                     </div>
-                    <p><b>Giá phòng/tháng:</b> <span class="price">{{$post->price}} VNĐ</span></p>
-                    <p><b>Diện tích:</b> {{$post->size}} m2</p>
+                    <?php
+                        $dateupload = date_create($post->dateupload);
+                    ?>
+                    <p><b>Giá phòng/tháng:</b> <span class="price">{{number_format($post->price, 0, ',', '.')}} VNĐ</span></p>
+                    <p><b>Diện tích:</b> {{number_format($post->size, 0, ',', '.')}} m2</p>
                     <p><b>Địa chỉ:</b> {{$post->address}}</p>
                     <p><b>Loại phòng:</b> {{$post->category}} </p>
-                    <p><b>Ngày đăng:</b> {{$post->dateupload}}</p>
+                    <p><b>Ngày đăng:</b> Ngày {{date_format($dateupload, 'd/m/Y')}}, vào lúc {{date_format($dateupload, 'H:i')}}</p>
                     <p><b>Trạng thái:</b> <span class="<?php if ($post->status == "đã giao") echo "text-warning"; ?>">{{$post->status}}</span></p>
                 </div>
             </div>

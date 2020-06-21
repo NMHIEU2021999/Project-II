@@ -48,4 +48,25 @@ class Post extends Model
     public function deletePost(){
         DB::table('Post')->where('postid', $this->postid)->update(['status'=> 'đã xoá']);
     }
+    public function updatePost(){
+        DB::table('Post')->where('postid', $this->postid)->update([
+            'postname' => $this->postname, 'status'=> $this->status, 'address' => $this->address,
+            'province' => $this->province, 'price' => $this->price,
+            'size' => $this->size, 'category' => $this->category, 'description' => $this->description, 'image1' => $this->image1,
+            'image2' => $this->image2, 'image3' => $this->image3, 'image4' => $this->image4, 'image5' => $this->image5
+        ]);
+    }
+    public function checkIfExistPost($postid){
+        return DB::table('Post')->where('postid', $postid)->exists();
+    }
+    public function getUploadedPostsByName($searchValue){
+        $user = Auth::user();
+        return DB::table('Post')->where('username', $user->username)
+        ->where('postname', 'like', '%'.$searchValue.'%')->paginate(8);
+    }
+    public function searchUploadedPostsByName($searchValue){
+        $user = Auth::user();
+        return DB::table('Post')->select('postname')->where('username', $user->username)->where('postname', 'like', '%'.$searchValue.'%')
+       ->groupBy('postname')->limit(6)->get();
+    }
 }

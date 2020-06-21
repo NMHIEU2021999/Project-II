@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Trọ đẹp - Danh sách tin đã đăng</title>
+    <title>Trọ đẹp - Danh sách bài đăng quan tâm</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/png" href="./icon/favicon.png" />
     <link rel="stylesheet" type="text/css" href="./css/bootstrap4.1.13.min.css">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./css/content.css">
     <link rel="stylesheet" type="text/css" href="./css/footer.css">
     <link rel="stylesheet" type="text/css" href="./css/home.css">
-    <link rel="stylesheet" type="text/css" href="./css/uploadedpost.css">
+    <link rel="stylesheet" type="text/css" href="./css/wishlist.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
@@ -18,8 +18,8 @@
 <body>
     @include('Header')
     <script type="text/javascript">
-        $('.uploaded p').addClass('selected');
-        $('a.uploaded').addClass('selected');
+        $('.wishlist p').addClass('selected');
+        $('a.wishlist').addClass('selected');
     </script>
     <div class="content-container container-fluid">
     <div class="search-bar">
@@ -36,7 +36,7 @@
             </form>
         </div>
         <?php
-        $query = 'uploads?';
+        $query = 'wishlist?';
         if(isset($search)){
             $query .='search='.$search.'&';
         }
@@ -53,16 +53,14 @@
                     <a href="/detailpost?postid=<?php echo $post->postid ?>">
                         <p class="contest-name">{{$post->postname}}</p>
                     </a>
+                    <div class="wish-option">
+                        <a title="Loại khỏi danh sách quan tâm" class="wish remove-from-wish-list">
+                            <i class="fas fa-star text-primary"></i>
+                        </a>
+                        <p id="postid" hidden>{{$post->postid}}</p>
+                    </div>
                     <div class="btn-container">
                         <a style="padding-top: 10px; padding-bottom: 10px" href="/detailpost?postid=<?php echo $post->postid ?>" class="btn-detail"><span>Chi tiết</span></a>
-                    </div>
-                    <div class="owner-option">
-                        <a href="editpost?postid=<?php echo $post->postid ?>" style="margin-right: 8px;">
-                            <button class="btn btn-warning btn-edit"><i class="fa fa-edit"></i>&nbsp; Sửa</button>
-                        </a>
-                        <button class="btn btn-danger btn-delete"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Xoá
-                            <p id="postid" hidden>{{$post->postid}}</p>
-                        </button>
                     </div>
                     <?php
                     $dateupload = date_create($post->dateupload);
@@ -123,6 +121,8 @@
     </div>
     @include('Footer')
     <script src="./js/uploadedpost.js"></script>
+    <script src="./js/wish.js"></script>
+    <script src="./js/wishlist.js"></script>
 </body>
 
 </html>
